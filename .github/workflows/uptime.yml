@@ -1,0 +1,42 @@
+# Every 5 minutes: check.mjs checks afk.ai and the Modal rigger and pushes alerts to the phone (ntfy). GitHub can start a
+# scheduled run several minutes late. Run it by hand with "test" ticked to send a test alert.
+name: Uptime
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      test:
+        description: Send a test alert to the phone
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check
+        run: node check.mjs
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          TEST: ${{ inputs.test && '1' || '' }}
+
+      # only when something changed: an alert, a recovery or the weekly heartbeat
+      - name: Save what it saw
+        run: |
+          git diff --quiet state.json && exit 0
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -qm "state: $(date -u +%FT%TZ)" state.json
+          git push -q
