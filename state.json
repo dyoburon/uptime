@@ -1,1 +1,20 @@
-{}
+{
+  "checks": {
+    "site": {
+      "status": "up",
+      "since": 1793653261301,
+      "alerted": 1793653261301
+    },
+    "api": {
+      "status": "up",
+      "since": 1793653261301,
+      "alerted": 1793653261301
+    },
+    "modal": {
+      "status": "up",
+      "since": 1793653261301,
+      "alerted": 1793653261301
+    }
+  },
+  "heartbeat": 1793653261301
+}
