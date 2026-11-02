@@ -1,5 +1,5 @@
 # Every 5 minutes: check.mjs checks afk.ai and the Modal rigger and pushes alerts to the phone (ntfy). GitHub can start a
-# scheduled run several minutes late. Run it by hand with "test" ticked to send a test alert.
+# scheduled run several minutes late (or, under load, skip one). Run it by hand with "test" ticked to send a test alert.
 name: Uptime
 
 on:
