@@ -11,9 +11,9 @@
       "alerted": 1793653261301
     },
     "modal": {
-      "status": "up",
-      "since": 1793653261301,
-      "alerted": 1793653261301
+      "status": "down",
+      "since": 1795290262394,
+      "alerted": 1795290262394
     }
   },
   "heartbeat": 1794892085903
